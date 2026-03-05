@@ -5,24 +5,34 @@ import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 
-    public void create(User user) {
-        String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
+    public List<User> listAll() {
+        String sql = "SELECT id, name, email FROM users ORDER BY id";
+
+        List<User> users = new ArrayList<>();
 
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
+            while (rs.next()) {
+                User u = new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                );
+                users.add(u);
+            }
 
-            int rows = stmt.executeUpdate();
-            System.out.println("✅ Usuário inserido! Linhas afetadas: " + rows);
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao inserir usuário", e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return users;
     }
 }

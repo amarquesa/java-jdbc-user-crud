@@ -1,14 +1,20 @@
 import dao.UserDao;
 import model.User;
 
+import java.util.List;
+
 public class Main {
+
     public static void main(String[] args) {
 
-        User user = new User("Amanda", "amanda@gmail.com");
-
         UserDao dao = new UserDao();
-        dao.create(user);
 
-        System.out.println("Fim ✅");
+        List<User> users = dao.listAll();
+
+        System.out.println("Lista de usuários:\n");
+
+        for (User u : users) {
+            System.out.println(u.getId() + " | " + u.getName() + " | " + u.getEmail());
+        }
     }
 }
