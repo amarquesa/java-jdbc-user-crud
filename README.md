@@ -34,8 +34,19 @@ src
 ## Funcionalidades
 
 - Conexão com PostgreSQL
-- Listagem de usuários
-- Estrutura organizada em camadas
+- Listar usuários
+- Inserir usuários
+- Atualizar usuários
+- Remover usuários
+
+## Menu da aplicação
+=== MENU ===
+
+1 - Listar usuários
+2 - Inserir usuário
+3 - Atualizar usuário
+4 - Deletar usuário
+0 - Sair
 
 ---
 
@@ -50,4 +61,5 @@ Lista de usuários:
 ## Autor
 
 Amanda Evelyn Marques
+
 
